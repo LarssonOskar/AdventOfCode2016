@@ -32,10 +32,8 @@ class Day1 {
             switch (dir) {
             case "R":
                 endPosition.direction += 90
-                break;
             case "L":
                 endPosition.direction -= 90;
-                break;
             default:
                 break;
             }
