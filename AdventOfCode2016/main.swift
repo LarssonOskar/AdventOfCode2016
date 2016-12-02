@@ -8,5 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
 
+var d = Day1();
+
+print("Todays answer is: ", d.start());
