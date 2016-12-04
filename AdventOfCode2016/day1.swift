@@ -22,6 +22,7 @@ class Day1 {
             .substring(to: input.endIndex)
             .components(separatedBy: ",");
         var endPosition = routeCoordinates();
+
         for ins in instructions {
             let instruction = ins.trimmingCharacters(in: .whitespaces);
             let index = instruction.index(instruction.startIndex, offsetBy: 1);
@@ -44,30 +45,48 @@ class Day1 {
                 endPosition.direction = 270;
             }
             
-            
-            switch endPosition.direction {
-            case 0:
-                endPosition.y += steps;
-            case 90:
-                endPosition.x += steps;
-            case 180:
-                endPosition.y -= steps;
-            case 270:
-                endPosition.x -= steps;
-                
-            default:
-                break;
-            }
+            endPosition.updatePosition(steps: steps);
+
             
         }
-        
         return abs(endPosition.x) + abs(endPosition.y);
         
     }
     
+    
+    
     struct routeCoordinates {
         var x = 0;
         var y = 0;
-        var direction = 0;
+        var direction = 0
+        var log :[String] = [];
+        
+        mutating func updatePosition(steps : Int) {
+            for _ in 0..<steps {
+                
+                switch self.direction {
+                case 0:
+                    self.y += 1;
+                case 90:
+                    self.x += 1;
+                case 180:
+                    self.y -= 1;
+                case 270:
+                    self.x -= 1;
+                    
+                default:
+                    break;
+                }
+                
+                let coord: String = String(self.x) + String(self.y);
+                
+                if log.contains(coord) {
+                    print("Intersection ", abs(self.x)+abs(self.y), " steps away" );
+                }
+                log.append(coord);
+            }
+            
+            
+        }
     }
 }
